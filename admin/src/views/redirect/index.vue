@@ -1,12 +1,16 @@
-<script>
-export default {
-  created() {
-    const { params, query } = this.$route;
-    const { path } = params;
-    this.$router.replace({ path: `/${path}`, query });
-  },
-  render(h) {
-    return h(); // avoid warning message
-  },
-};
+<template>
+  <div></div>
+</template>
+
+<script lang="ts" setup>
+  import { useRouter, useRoute } from 'vue-router';
+
+  const router = useRouter();
+  const route = useRoute();
+
+  const gotoPath = route.params.path as string;
+
+  router.replace({ path: gotoPath });
 </script>
+
+<style scoped lang="less"></style>

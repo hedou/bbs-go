@@ -1,223 +1,115 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      label-position="left"
-      class="login-form"
-      autocomplete="on"
-    >
-      <div class="title-container">
-        <h3 class="title">登录</h3>
+    <div class="logo">
+      <img
+        alt="logo"
+        src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
+      />
+      <div class="logo-text">BBS-GO</div>
+    </div>
+    <LoginBanner />
+    <div class="content">
+      <div class="content-inner">
+        <a-spin :loading="loading" tip="Loading">
+          <LoginForm />
+        </a-spin>
       </div>
-
-      <el-form-item prop="username">
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on"
-          @keyup.enter.native="handleLogin"
-        />
-      </el-form-item>
-
-      <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
-        <el-form-item prop="password">
-          <el-input
-            ref="password"
-            v-model="loginForm.password"
-            type="password"
-            placeholder="密码"
-            name="password"
-            tabindex="2"
-            autocomplete="on"
-            @keyup.native="checkCapslock"
-            @blur="capsTooltip = false"
-            @keyup.enter.native="handleLogin"
-          />
-        </el-form-item>
-      </el-tooltip>
-
-      <el-form-item prop="captchaCode" class="captcha-code">
-        <el-input
-          ref="username"
-          v-model="loginForm.captchaCode"
-          placeholder="验证码"
-          name="captchaCode"
-          type="text"
-          tabindex="3"
-          autocomplete="off"
-          @keyup.enter.native="handleLogin"
-        />
-        <div v-if="loginForm.captchaUrl" class="captcha-code-img">
-          <a @click="showCaptcha"><img :src="loginForm.captchaUrl" /></a>
-        </div>
-      </el-form-item>
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
-      >
-        Login
-      </el-button>
-    </el-form>
+      <div class="footer">
+        <Footer />
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      loginForm: {
-        username: "",
-        password: "",
-        captchaId: "",
-        captchaUrl: "",
-        captchaCode: "",
-      },
-      capsTooltip: false,
-      loading: false,
-      redirect: undefined,
-      otherQuery: {},
-    };
-  },
-  watch: {
-    $route: {
-      handler(route) {
-        const { query } = route;
-        if (query) {
-          this.redirect = query.redirect;
-          this.otherQuery = this.getOtherQuery(query);
-        }
-      },
-      immediate: true,
-    },
-  },
-  mounted() {
-    if (this.loginForm.username === "") {
-      this.$refs.username.focus();
-    } else if (this.loginForm.password === "") {
-      this.$refs.password.focus();
-    }
-    this.showCaptcha();
-  },
-  methods: {
-    async showCaptcha() {
-      try {
-        const ret = await this.axios.get("/api/captcha/request", {
-          params: {
-            captchaId: this.loginForm.captchaId || "",
+<script lang="ts" setup>
+  import Footer from '@/components/footer/index.vue';
+  import { DEFAULT_ROUTE_NAME } from '@/router/constants';
+  import LoginBanner from './components/banner.vue';
+  import LoginForm from './components/login-form.vue';
+
+  const userStore = useUserStore();
+  const router = useRouter();
+  const loading = ref(true);
+
+  onMounted(async () => {
+    try {
+      const user = await userStore.info();
+      if (user) {
+        const { redirect, ...othersQuery } = router.currentRoute.value.query;
+        router.push({
+          name: (redirect as string) || DEFAULT_ROUTE_NAME,
+          query: {
+            ...othersQuery,
           },
         });
-        this.loginForm.captchaId = ret.captchaId;
-        this.loginForm.captchaUrl =
-          process.env.VUE_APP_BASE_API +
-          "/api/captcha/show?captchaId=" +
-          this.loginForm.captchaId +
-          "&timestamp=" +
-          new Date().getTime();
-      } catch (e) {
-        this.$message.error(e.message || e);
       }
-    },
-    checkCapslock({ shiftKey, key } = {}) {
-      if (key && key.length === 1) {
-        if ((shiftKey && key >= "a" && key <= "z") || (!shiftKey && key >= "A" && key <= "Z")) {
-          this.capsTooltip = true;
-        } else {
-          this.capsTooltip = false;
-        }
-      }
-      if (key === "CapsLock" && this.capsTooltip === true) {
-        this.capsTooltip = false;
-      }
-    },
-    handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          this.$store
-            .dispatch("user/login", this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || "/", query: this.otherQuery });
-              this.loading = false;
-            })
-            .catch((e) => {
-              console.error(e);
-              this.showCaptcha();
-              this.loading = false;
-            });
-          return true;
-        }
-        return false;
-      });
-    },
-    getOtherQuery(query) {
-      return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== "redirect") {
-          acc[cur] = query[cur];
-        }
-        return acc;
-      }, {});
-    },
-  },
-};
+    } finally {
+      loading.value = false;
+    }
+  });
 </script>
 
-<style lang="scss">
-.login-container {
-  min-height: 100%;
-  width: 100%;
-  background-color: #fff;
-  overflow: hidden;
+<style lang="less" scoped>
+  .login-container {
+    display: flex;
+    height: 100vh;
 
-  .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
-
-    .captcha-code {
-      & > div {
-        display: flex;
-        .captcha-code-img {
-          // margin-left: 10px;
-          img {
-            height: 36px;
-          }
+    .banner {
+      width: 550px;
+      background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
+      @media screen and (max-width: 1400px) {
+        & {
+          width: 450px !important;
+        }
+      }
+      @media screen and (max-width: 1024px) {
+        & {
+          display: none !important;
         }
       }
     }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 40px;
+    }
+
+    .footer {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+    }
   }
 
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
+  .logo {
+    position: fixed;
+    top: 24px;
+    left: 22px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
 
-    span {
-      &:first-of-type {
-        margin-right: 16px;
+    &-text {
+      margin-right: 4px;
+      margin-left: 4px;
+      color: var(--color-fill-1);
+      font-size: 20px;
+    }
+  }
+</style>
+
+<style lang="less" scoped>
+  // responsive
+  @media (max-width: @screen-lg) {
+    .container {
+      .banner {
+        width: 25%;
       }
     }
   }
-
-  .title-container {
-    position: relative;
-
-    .title {
-      font-size: 26px;
-      color: #000;
-      margin: 0 auto 40px auto;
-      text-align: center;
-      font-weight: bold;
-    }
-  }
-}
 </style>

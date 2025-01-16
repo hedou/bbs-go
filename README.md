@@ -1,94 +1,85 @@
 ## 项目地址
 
-- 交流站：[码农俱乐部](https://mlog.club)
-- 文档地址：[http://docs.bbs-go.com/](http://docs.bbs-go.com/)
+- 演示站：[https://bbs.bbs-go.com](https://bbs.bbs-go.com)
+- 文档地址：[https://bbs-go.com](https://bbs-go.com)
 - 问题反馈: [https://mlog.club/topics/node/3](https://mlog.club/topics/node/3)
 - Github: [https://github.com/mlogclub/bbs-go](https://github.com/mlogclub/bbs-go)
 - Gitee: [https://gitee.com/mlogclub/bbs-go](https://gitee.com/mlogclub/bbs-go)
 
-## 付费服务
+## 联系我
 
-付费是为了项目能够更好的生存下去，请谅解。项目将一如既往的开源下去~
+### 用户交流群
 
-联系QQ：`471243194`
+![BBS-GO用户交流群](docs/images/qq.png)
 
-| 服务     | 价格  | 服务内容                                         |
-| -------- | ----- | ------------------------------------------------ |
-| 付费部署 | ￥128 | 协助将bbs-go部署成功                             |
-| 商用授权 | ￥628 | 提供bbs-go商业使用授权                             |
-| 付费咨询 | 面议  | 付费答疑解惑，协助解决问题                       |
-| 功能定制 | 面议  | 接受各种功能定制，只有你想不到的没有我们做不到的 |
+### 加我微信
 
-## 课程
-
-**`bbs-go`搭建课程上线啦，快来跟着我一步步搭建属于你的bbs吧。该课程会带领大家一步步的了解并熟悉Go语言开发，如果你是一个Go语言初学者，或者正准备学习Go语言，那么这个课程非常适合你。如果你熟练掌握了本课程中的知识点，相信你就已经入门Go语言开发，并能胜任日常的开发工作了。**
-
-- 课程地址：[https://www.shiyanlou.com/courses/1436](https://www.shiyanlou.com/courses/1436)
-- 9折优惠邀请码： `ZHwfIjb1`
-
-Go 是非常年轻的一门语言，它的主要目标是`兼具Python等动态语言的开发速度和 C/C++ 等编译型语言的性能与安全性`。Go 语言发布以来更是受到中国开发者的青睐，头条、七牛、360、腾讯、阿里等大厂的重要服务都开始使用Go语言构建，国内的Go语言研发岗位的薪水也是很可观的。 
+![BBS-GO用户交流群](docs/images/wechat.png)
 
 ## 介绍
 
-`bbs-go`是一个使用Go语言搭建的开源社区系统，采用前后端分离技术，Go语言提供api进行数据支撑，用户界面使用Nuxt.js进行渲染，后台界面基于element-ui。如果你正在学习Go语言，或者考虑转Go语言的Phper/Javaer...那么该项目对你有的学习会有很大的帮助，欢迎一起来交流。
+`bbs-go` 是一个基于 Go 语言开发的开源社区论坛系统。它的设计旨在提供轻量、高效的社区讨论平台，支持现代化的 Web 技术栈，并且易于扩展和部署。bbs-go 项目采用模块化架构，能够与其他服务和前端框架无缝集成，适合各种规模的在线社区。
 
-![bbs-go功能简介](https://i.loli.net/2021/11/12/OxTBib2pGcV8jzU.png)
+项目的主要特点包括：
+
+- **高性能**：基于 Go 语言的并发特性，能够在高负载下保持良好的性能表现。
+- **灵活性**：支持自定义配置、插件扩展，易于适应不同需求。
+- **简单易用**：提供简洁的管理后台，方便社区管理员管理论坛内容和用户。
+- **支持 MySQL 数据库**：提供对常见数据库的支持，确保数据存储的可靠性和稳定性。
+- **响应式设计**：前端使用现代化的技术，能够在移动设备和桌面设备上提供良好的用户体验。
+
+项目主要面向开发者和社区管理者，适合搭建技术讨论、兴趣分享等类型的社区论坛。
+
+![bbs-go功能简介](docs/images/features.jpg)
 
 ## 模块
 
 ### server
 
+[![bbs-go-server](https://github.com/mlogclub/bbs-go/actions/workflows/bbs-go-server.yml/badge.svg)](https://github.com/mlogclub/bbs-go/actions/workflows/bbs-go-server.yml)
+
 > 基于`Golang`搭建，提供接口数据支撑。
 
-*技术栈*
-- iris (https://github.com/kataras/iris) Go 语言 mvc 框架
-- gorm (http://gorm.io/) Go 语言 orm 框架
-- Nuxt.js （https://nuxtjs.org/） 基于Vue.js的服务端页面渲染框架，简单、好用、功能强大
-- resty (https://github.com/go-resty/resty) Go 语言好用的 http-client
-- cron (https://github.com/robfig/cron) 定时任务
-- goquery (https://github.com/PuerkitoBio/goquery) html dom 元素解析
+技术栈
+
+- iris ([https://github.com/kataras/iris](https://github.com/kataras/iris)) Go语言 mvc 框架
+- gorm ([http://gorm.io](http://gorm.io)) 最好用的Go语言数据库orm框架
+- resty ([https://github.com/go-resty/resty](https://github.com/go-resty/resty)) Go语言好用的 http-client
+- cron ([https://github.com/robfig/cron](https://github.com/robfig/cron)) 定时任务框架
+- goquery ([https://github.com/PuerkitoBio/goquery](https://github.com/PuerkitoBio/goquery)) html dom 元素解析
 
 ### site
 
+[![bbs-go-site](https://github.com/mlogclub/bbs-go/actions/workflows/bbs-go-site.yml/badge.svg)](https://github.com/mlogclub/bbs-go/actions/workflows/bbs-go-site.yml)
+
 > 前端页面渲染服务，基于`nuxt.js`搭建。
 
-*技术栈*
-- Nuxt.js (https://nuxtjs.org) 基于 Vue 的服务端渲染框架
-- Element-UI (https://element.eleme.cn) 饿了么开源的基于 vue.js 的前端库
-- Vditor (https://github.com/Vanessa219/vditor) Markdown 编辑器
+技术栈
+
+- vue.js ([https://vuejs.org](https://vuejs.org)) 渐进式 JavaScript 框架
+- nuxt.js ([https://nuxtjs.org](https://nuxtjs.org)) 基于Vue的服务端渲染框架，效率高到爆
+
+### admin
+
+[![bbs-go-admin](https://github.com/mlogclub/bbs-go/actions/workflows/bbs-go-admin.yml/badge.svg)](https://github.com/mlogclub/bbs-go/actions/workflows/bbs-go-admin.yml)
+
+> 管理后台系统，基于`vue.js + element-ui`搭建。
+
+技术栈
+
+- vue.js ([https://vuejs.org](https://vuejs.org)) 渐进式 JavaScript 框架
+- element-ui ([https://element.eleme.cn](https://element.eleme.cn)) 饿了么开源的基于 vue.js 的前端库
 
 ## 功能预览
 
-![首页.jpg](https://i.loli.net/2020/07/10/CzmOJZk3xjKM1cT.png)
-![动态.jpg](https://i.loli.net/2020/07/10/Qim57jL9MydbsZk.png)
-![后台.png](https://i.loli.net/2020/07/10/1BwAkrI6DOCWQS3.png)
+![首页.png](https://s2.loli.net/2022/04/12/DpvPwB9dlQ6Chef.png)
+![发帖.png](https://s2.loli.net/2022/04/12/KC8eXfE6sDLq34V.png)
+![发动态.png](https://s2.loli.net/2022/04/12/14pMPuGjEU6kiWV.png)
+![个人中心.png](https://s2.loli.net/2022/04/12/1PVNjMh9nUAXsl8.png)
+![手机版.png](https://s2.loli.net/2022/04/12/mowWb78CGIaH6T2.png)
+![后台首页.png](https://s2.loli.net/2022/04/12/ErX2BLTnh7ldz8D.png)
+![后台配置.png](https://s2.loli.net/2022/04/12/PwK6aC74XEZlIOL.png)
 
 ## Contributors
 
-### Code Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/mlogclub/bbs-go/graphs/contributors"><img src="https://opencollective.com/bbs-go/contributors.svg?width=890&button=false" /></a>
-
-### Financial Contributors
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/bbs-go/contribute)]
-
-#### Individuals
-
-<a href="https://opencollective.com/bbs-go"><img src="https://opencollective.com/bbs-go/individuals.svg?width=890"></a>
-
-#### Organizations
-
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/bbs-go/contribute)]
-
-<a href="https://opencollective.com/bbs-go/organization/0/website"><img src="https://opencollective.com/bbs-go/organization/0/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/1/website"><img src="https://opencollective.com/bbs-go/organization/1/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/2/website"><img src="https://opencollective.com/bbs-go/organization/2/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/3/website"><img src="https://opencollective.com/bbs-go/organization/3/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/4/website"><img src="https://opencollective.com/bbs-go/organization/4/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/5/website"><img src="https://opencollective.com/bbs-go/organization/5/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/6/website"><img src="https://opencollective.com/bbs-go/organization/6/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/7/website"><img src="https://opencollective.com/bbs-go/organization/7/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/8/website"><img src="https://opencollective.com/bbs-go/organization/8/avatar.svg"></a>
-<a href="https://opencollective.com/bbs-go/organization/9/website"><img src="https://opencollective.com/bbs-go/organization/9/avatar.svg"></a>
