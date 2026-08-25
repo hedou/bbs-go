@@ -1630,6 +1630,11 @@ const enUS = {
           "Choose a default avatar. You can change it later in your profile.",
         usernameError: "Enter an admin username.",
         passwordError: "Enter an admin password.",
+        passwordHelp: "Password must be at least 6 characters long.",
+        passwordTooShortError:
+          "Administrator password must be at least 6 characters long.",
+        passwordTooLongError:
+          "Administrator password must be no more than 1024 characters long.",
         confirmPasswordError: "Please confirm admin password.",
         passwordMismatchError: "Passwords do not match.",
       },
